@@ -24,9 +24,9 @@
             </GroupBox>
         <Expander Header="*.doc *.docx *.rtf" Name="WordExpaner" HorizontalAlignment="Left" Height="87" Margin="10,66,0,0" VerticalAlignment="Top" Width="90">
             <Grid Background="#FFE5E5E5">
-                <CheckBox Name ="docCheckBox" IsChecked="True" Content="*.doc" Checked="onWordChecked" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name ="docxCheckBox" IsChecked="True" Content="*.docx" Checked="onWordChecked" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
-                <CheckBox Name ="rtfCheckBox" IsChecked="True" Content="*.rtf" Checked="onWordChecked" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name ="docCheckBox" IsChecked="True" Content="*.doc" Checked="onDocChecked" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox Name ="docxCheckBox" IsChecked="True" Content="*.docx" Checked="onDocxChecked" HorizontalAlignment="Left" Margin="10,30,0,19"/>
+                <CheckBox Name ="rtfCheckBox" IsChecked="True" Content="*.rtf" Checked="onRtfChecked" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Expander>
 

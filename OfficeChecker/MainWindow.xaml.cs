@@ -21,6 +21,10 @@ namespace OfficeChecker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string docExt_ ;
+        private string docxExt_;
+        private string rtfExt_;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +32,7 @@ namespace OfficeChecker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
             winForms.FolderBrowserDialog dirBrowse = new winForms.FolderBrowserDialog
             {
@@ -40,14 +44,34 @@ namespace OfficeChecker
                 TextEditFolder.Text = dirBrowse.SelectedPath;
 
         }
-        private void onWordChecked(object sender , RoutedEventArgs e)
+        private void onDocChecked(object sender, RoutedEventArgs e)
         {
             List<string> wordExtList = new List<string>();
+            if (docCheckBox != null)
             if (docCheckBox.Content != null)
             {
                 if (docCheckBox.IsChecked == true)
                     wordExtList.Add(docCheckBox.Content.ToString());
             }
+            if (docxCheckBox != null)
+            if (docxCheckBox.Content != null)
+            {
+                if (docxCheckBox.IsChecked == true)
+                    wordExtList.Add(docxCheckBox.Content.ToString());
+            }
+            if (rtfCheckBox != null)
+            if (rtfCheckBox.Content != null)
+            {
+                if (rtfCheckBox.IsChecked == true)
+                    wordExtList.Add(rtfCheckBox.Content.ToString());
+            }
+
+            string headerNewName = "";
+            foreach (var theName in wordExtList)
+            {
+                headerNewName += theName;
+            }
+            WordExpaner.Header = headerNewName;
 
             //WordExpaner.Header = docCheckBox.Content.ToString();
 
@@ -59,6 +83,14 @@ namespace OfficeChecker
             //{
             //    WordExpaner.Header = checkBox.Content.ToString();
             //}
+        }
+        private void onDocxChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void onRtfChecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
