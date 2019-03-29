@@ -21,13 +21,17 @@ namespace OfficeChecker
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string docExt_ ;
-        private string docxExt_;
-        private string rtfExt_;
+        private List<string> wordExtensionList_ ;
+        private List<string> excelExtensionList_;
+
 
         public MainWindow()
         {
             InitializeComponent();
+            wordExtensionList_ = new List<string> { };
+            OnWordClicked(docCheckBox, null);
+            excelExtensionList_ = new List<string> { };
+            OnExcelClicked(xlsCheckBox, null);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,53 +48,56 @@ namespace OfficeChecker
                 TextEditFolder.Text = dirBrowse.SelectedPath;
 
         }
-        private void onDocChecked(object sender, RoutedEventArgs e)
+        private void UpdateExtensionList(ref CheckBox check_box , List<string> extList)
         {
-            List<string> wordExtList = new List<string>();
-            if (docCheckBox != null)
-            if (docCheckBox.Content != null)
-            {
-                if (docCheckBox.IsChecked == true)
-                    wordExtList.Add(docCheckBox.Content.ToString());
-            }
-            if (docxCheckBox != null)
-            if (docxCheckBox.Content != null)
-            {
-                if (docxCheckBox.IsChecked == true)
-                    wordExtList.Add(docxCheckBox.Content.ToString());
-            }
-            if (rtfCheckBox != null)
-            if (rtfCheckBox.Content != null)
-            {
-                if (rtfCheckBox.IsChecked == true)
-                    wordExtList.Add(rtfCheckBox.Content.ToString());
-            }
-
-            string headerNewName = "";
-            foreach (var theName in wordExtList)
-            {
-                headerNewName += theName;
-            }
-            WordExpaner.Header = headerNewName;
-
-            //WordExpaner.Header = docCheckBox.Content.ToString();
-
-            //docCheckBox.isC
-            //var checkBox = sender as CheckBox;
-            ////var checkBox = ((CheckBox)sender);
-            //if (checkBox.Content!=null)
-            //if (checkBox.IsChecked != null && checkBox.IsChecked.Value)
-            //{
-            //    WordExpaner.Header = checkBox.Content.ToString();
-            //}
+            if (check_box != null)
+                if (check_box.Content != null)
+                {
+                    if (check_box.IsChecked == true)
+                        extList.Add(check_box.Content.ToString());
+                }
         }
-        private void onDocxChecked(object sender, RoutedEventArgs e)
+
+       string GetStringFromExtList(List<string> extList , string delimiter = " ")
         {
-
+            string fullName = "";
+            foreach (var theName in extList)
+            {
+                fullName += theName + delimiter;
+            }
+            return fullName;
         }
-        private void onRtfChecked(object sender, RoutedEventArgs e)
+
+        private void OnWordClicked(object sender, RoutedEventArgs e)
         {
+            wordExtensionList_.Clear();
+            UpdateExtensionList(ref docCheckBox, wordExtensionList_);
+            UpdateExtensionList(ref docxCheckBox, wordExtensionList_);
+            UpdateExtensionList(ref rtfCheckBox, wordExtensionList_);
+
+            string headerNewName = GetStringFromExtList(wordExtensionList_);
+            if (String.IsNullOrEmpty(headerNewName))
+            {
+                WordExpaner.Header = "no Word";
+            }
+            else
+                WordExpaner.Header = headerNewName;
+        }
+        private void OnExcelClicked(object sender, RoutedEventArgs e)
+        {
+            excelExtensionList_.Clear();
+            UpdateExtensionList(ref xlsCheckBox, excelExtensionList_);
+            UpdateExtensionList(ref xlsxCheckBox, excelExtensionList_);
+
+            string headerNewName = GetStringFromExtList(excelExtensionList_);
+            if (String.IsNullOrEmpty(headerNewName))
+            {
+                ExcelExapander.Header = "no Excel";
+            }
+            else
+                ExcelExapander.Header = headerNewName;
 
         }
+
     }
 }
